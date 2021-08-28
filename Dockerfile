@@ -4,7 +4,8 @@ RUN apt install -y \
       wget \
       gpg \
       yarn \
-      git
+      git \
+      vim
 
 RUN yarn global add truffle ganache-cli
 
