@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "ganache-cli": "^6.12.2",
+    "global": "^4.4.0",
+    "truffle": "^5.4.8"
+  }
+}
