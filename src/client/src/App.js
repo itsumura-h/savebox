@@ -5,6 +5,7 @@ import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PorjectIndex from './Pages/ProjectIndex';
 import ProjectDetail from './Pages/ProjectDetail';
+import PorjectDevidends from './Pages/PorjectDevidends';
 
 import "./App.css";
 
@@ -13,6 +14,7 @@ function App() {
     <Router>
       <Switch>
         <Route path='/' exact component={PorjectIndex}/>
+        <Route path='/dividends' exact component={PorjectDevidends}/>
         <Route path='/:id' exact component={ProjectDetail}/>
       </Switch>
     </Router>

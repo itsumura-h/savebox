@@ -1,12 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import getWeb3 from "../getWeb3";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
-
-const Bosyus = [
-  {
-    'title': ''
-  }
-]
+import projects from "../consts/projects.json"
 
 const PorjectIndex=()=>{
   const [accounts, setAccounts] = useState(null);
@@ -29,10 +24,10 @@ const PorjectIndex=()=>{
       try {
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
-        console.log('web3: %d', web3)
+        console.log('web3: ', web3)
         // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
-        console.log('accounts: %d', accounts)
+        console.log('accounts: ', accounts)
         // Get the contract instance.
         const networkId = await web3.eth.net.getId();
   
@@ -41,7 +36,7 @@ const PorjectIndex=()=>{
           SimpleStorageContract.abi,
           deployedNetwork && deployedNetwork.address,
         );
-        console.log('instance: %d', instance)
+        console.log('instance: ', instance)
   
   
         // const deployedNetwork = Savebox.networks[networkId];
@@ -72,6 +67,17 @@ const PorjectIndex=()=>{
   return (
     <div>
       <h1>porjects</h1>
+      {projects.projectcs.map((row, i)=>{
+        return (
+          <div id={i}>
+            <h2>{row.projectName}</h2>
+            <h3>発起人：{row.founderUser}</h3>
+            <p>{row.projectSummary}</p>
+            <p>目標金額：{row.targetAmount}</p>
+            <p>配当開始％：{row.matchingStartPercentage}</p>
+          </div>
+        )
+      })}
     </div>
   )
 }
