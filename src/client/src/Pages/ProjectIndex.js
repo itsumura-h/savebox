@@ -70,7 +70,7 @@ const PorjectIndex=()=>{
       {projects.projectcs.map((row, i)=>{
         return (
           <div id={i}>
-            <h2>{row.projectName}</h2>
+            <h2><a href="/1">{row.projectName}</a></h2>
             <h3>発起人：{row.founderUser}</h3>
             <p>{row.projectSummary}</p>
             <p>目標金額：{row.targetAmount}</p>
