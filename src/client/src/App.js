@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 // import Savebox from "./contracts/JPYC_Example.json";
-import getWeb3 from "./getWeb3";
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PorjectIndex from './Pages/ProjectIndex';
