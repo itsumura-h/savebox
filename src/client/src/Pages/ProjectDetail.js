@@ -8,6 +8,7 @@ const ProjectDetail = () => {
   const [storageValue, setStorageValue] = useState(0);
   const [web3, setWeb3] = useState(null);
   const [accouts, setAccouts] = useState(null);
+  const [jpycAmount, setJpycAmount] = useState(null);
 
   useEffect(() => {
     async function connectMetamask() {
@@ -48,69 +49,15 @@ const ProjectDetail = () => {
 
   function saveMoney(){
     console.log('start save money..');
-    // var abi = [
-    //   {
-    //     constant: false,
-    //     inputs: [],
-    //     name: 'SaveMoney',
-    //     outputs: [],
-    //     payable: true,
-    //     stateMutability: 'payable',
-    //     type: 'function',
-    //   },
-    // ];
-
-    // var address = '0x23db62344f40fc356sfcba267514270e60eed82fd';
-
-    // var contract = web3.eth.contract(abi).at(address);
-
-    // web3.eth.getAccounts(function (error, result) {
-    //   contract.BuyItem(
-    //     {
-    //       from: result[0],
-    //       value: web3.fromWei(1, 'ether'),
-    //     },
-    //     function (err, transactionHash) {
-    //       console.log(err, transactionHash);
-    //     }
-    //   );
-    // });
-
-    // これだけでスマコン関数叩けるはず
-    // Stores a given value, 5 by default.
-    console.log(contract.methods)
-    // (async()=>{
-    //   await contract.methods.approveJpycFromContract().call();
-    // })()
-    web3.eth.sendTransaction({
-      from: accounts[0],
-      to: "0xCF83A8168e7D7621985AC47D742C670660cD99FA",
-      data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()')      
-    });
-    // await contract.methods.set(5).send({ from: accounts[0] });
   }
 
-  function jpycAmount() {
-    var myContractAbi = [
-      {
-        "inputs": [],
-        "name": "jpycAmount",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-    ];
+  function getJpycAmount() {
     contract.methods.jpycAmount()
     .call()
       .then(result => {
         // do stuff with returned values
         console.log('result', result)
+        setJpycAmount(result)
       }
     )
   }
@@ -121,8 +68,9 @@ const ProjectDetail = () => {
       <p>project.summary</p>
       <p>project.targetAmount</p>
       <p>project.savingAmount</p>
-      <button onClick={() => saveMoney(contract, accounts)}>貯金する</button>
-      <button onClick={() => jpycAmount(contract)}>貯金額を確認する</button>  
+      <button onClick={() => saveMoney(contract, accounts)}>貯金する</button>      
+      <button onClick={() => getJpycAmount(contract)}>貯金額を確認する</button>
+      <p>貯金総額：{jpycAmount}</p>
     </div>
   );
 };
