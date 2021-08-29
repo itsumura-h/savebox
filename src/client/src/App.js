@@ -4,6 +4,7 @@ import SimpleStorageContract from "./contracts/SimpleStorage.json";
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PorjectIndex from './Pages/ProjectIndex';
+import ProjectDetail from './Pages/ProjectDetail';
 
 import "./App.css";
 
@@ -11,7 +12,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/' component={PorjectIndex}/>
+        <Route path='/' exact component={PorjectIndex}/>
+        <Route path='/:id' exact component={ProjectDetail}/>
       </Switch>
     </Router>
   )

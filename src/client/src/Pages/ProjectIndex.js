@@ -2,6 +2,11 @@ import React, { Component, useState, useEffect } from "react";
 import getWeb3 from "../getWeb3";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 
+const Bosyus = [
+  {
+    'title': ''
+  }
+]
 
 const PorjectIndex=()=>{
   const [accounts, setAccounts] = useState(null);

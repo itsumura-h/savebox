@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 
-const PorjectIndex = () => {
+const ProjectDetail = () => {
   function saveMoney(user, amount) {
     console.log('start save money..')
   }
@@ -14,4 +14,4 @@ const PorjectIndex = () => {
     </div>
   )
 }
-export default PorjectDetail;
+export default ProjectDetail;
