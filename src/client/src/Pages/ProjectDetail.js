@@ -1,10 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
 import getWeb3 from '../getWeb3';
-import SimpleStorageContract from '../contracts/SimpleStorage.json';
+import JPYC_Example from '../contracts/JPYC_Example.json';
 
 const ProjectDetail = () => {
   const [accounts, setAccounts] = useState(null);
-  const [contract, setContract] = useState(null);
+  const [contract, setContract] = useState();
   const [storageValue, setStorageValue] = useState(0);
   const [web3, setWeb3] = useState(null);
   const [accouts, setAccouts] = useState(null);
@@ -21,12 +21,16 @@ const ProjectDetail = () => {
         // Get the contract instance.
         const networkId = await web3.eth.net.getId();
 
-        const deployedNetwork = SimpleStorageContract.networks[networkId];
+        const deployedNetwork = JPYC_Example.networks[networkId];
         const instance = new web3.eth.Contract(
-          SimpleStorageContract.abi,
-          deployedNetwork && deployedNetwork.address
+          JPYC_Example.abi,
+          // SimpleStorageContract.abi,
+          // deployedNetwork && deployedNetwork.address
         );
+        instance.options.address = "0xCF83A8168e7D7621985AC47D742C670660cD99FA"
+
         console.log('instance: ', instance);
+        console.log('instance.methods: ', instance.methods)
         setWeb3(web3);
         setAccounts(accounts);
         setContract(instance);
@@ -42,35 +46,73 @@ const ProjectDetail = () => {
     connectMetamask();
   }, []);
 
-  function saveMoney(user, amount) {
+  function saveMoney(){
     console.log('start save money..');
-    var abi = [
+    // var abi = [
+    //   {
+    //     constant: false,
+    //     inputs: [],
+    //     name: 'SaveMoney',
+    //     outputs: [],
+    //     payable: true,
+    //     stateMutability: 'payable',
+    //     type: 'function',
+    //   },
+    // ];
+
+    // var address = '0x23db62344f40fc356sfcba267514270e60eed82fd';
+
+    // var contract = web3.eth.contract(abi).at(address);
+
+    // web3.eth.getAccounts(function (error, result) {
+    //   contract.BuyItem(
+    //     {
+    //       from: result[0],
+    //       value: web3.fromWei(1, 'ether'),
+    //     },
+    //     function (err, transactionHash) {
+    //       console.log(err, transactionHash);
+    //     }
+    //   );
+    // });
+
+    // これだけでスマコン関数叩けるはず
+    // Stores a given value, 5 by default.
+    console.log(contract.methods)
+    // (async()=>{
+    //   await contract.methods.approveJpycFromContract().call();
+    // })()
+    web3.eth.sendTransaction({
+      from: accounts[0],
+      to: "0xCF83A8168e7D7621985AC47D742C670660cD99FA",
+      data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()')      
+    });
+    // await contract.methods.set(5).send({ from: accounts[0] });
+  }
+
+  function jpycAmount() {
+    var myContractAbi = [
       {
-        constant: false,
-        inputs: [],
-        name: 'SaveMoney',
-        outputs: [],
-        payable: true,
-        stateMutability: 'payable',
-        type: 'function',
+        "inputs": [],
+        "name": "jpycAmount",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
       },
     ];
-
-    var address = '0x23db62344f40fc356sfcba267514270e60eed82fd';
-
-    var contract = web3.eth.contract(abi).at(address);
-
-    web3.eth.getAccounts(function (error, result) {
-      contract.BuyItem(
-        {
-          from: result[0],
-          value: web3.fromWei(1, 'ether'),
-        },
-        function (err, transactionHash) {
-          console.log(err, transactionHash);
-        }
-      );
-    });
+    contract.methods.jpycAmount()
+    .call()
+      .then(result => {
+        // do stuff with returned values
+        console.log('result', result)
+      }
+    )
   }
 
   return (
@@ -79,7 +121,8 @@ const ProjectDetail = () => {
       <p>project.summary</p>
       <p>project.targetAmount</p>
       <p>project.savingAmount</p>
-      <button onClick={saveMoney}>貯金する</button>
+      <button onClick={() => saveMoney(contract, accounts)}>貯金する</button>
+      <button onClick={() => jpycAmount(contract)}>貯金額を確認する</button>  
     </div>
   );
 };

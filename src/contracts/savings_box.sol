@@ -71,5 +71,4 @@ contract JPYC_Example {
         require(msg.sender == owner);
         jpyc.transferFrom(address(this) , owner , jpyc.balanceOf(address(this)) );
     }
-    
 }
