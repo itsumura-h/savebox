@@ -1,0 +1,12 @@
+{
+  "name": "ganache",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ganache-cli": "^6.12.2"
+  },
+  "scripts": {
+    "ganache": "ganache-cli --host 0.0.0.0"
+  }
+}
