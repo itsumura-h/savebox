@@ -7,7 +7,7 @@ RUN apt install -y \
       git \
       vim
 
-RUN yarn global add truffle ganache-cli
+RUN yarn global add truffle
 
 RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs # VSCode Live Share
 WORKDIR /app
